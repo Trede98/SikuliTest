@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sikuli4Net.sikuli_REST;
+using SikuliSharp;
 using TestStack.White;
 
 namespace SikuliTest
@@ -14,7 +15,7 @@ namespace SikuliTest
         [TestMethod]
         public void TestMethod1()
         {
-
+            /*
             Pattern file = new Pattern(@"C:\Users\Fabio\Desktop\jdownloaderImages\file.png");
             Pattern max = new Pattern(@"C:\Users\Fabio\Desktop\jdownloaderImages\maximize.png");
             Pattern aggiungi = new Pattern(@"C:\Users\Fabio\Desktop\jdownloaderImages\aggiungi.png");
@@ -36,6 +37,36 @@ namespace SikuliTest
             Thread.Sleep(1000);
             scr.Click(continua);
 
+
+            Thread.Sleep(4000);
+            application.Close();
+
+            */
+            var file = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\file.png");
+            var max = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\maximize.png");
+            var aggiungi = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\aggiungi.png");
+            var testoAggiungi = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\testoAggiungi.png");
+            var continua = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\continua.png");
+
+
+            TestStack.White.Application application = TestStack.White.Application.Launch(@"C:\Users\Fabio\AppData\Local\JDownloader v2.0\JDownloader2.exe");
+
+            Thread.Sleep(5000);
+
+            using (var session = Sikuli.CreateSession())
+            {
+                
+
+                session.Click(max);
+                session.Click(file);
+                session.Click(aggiungi);
+
+                session.Click(testoAggiungi);
+                SendKeys.SendWait("http://releases.ubuntu.com/19.04/ubuntu-19.04-desktop-amd64.iso");
+                Thread.Sleep(1000);
+                session.Click(continua);
+
+            }
 
             Thread.Sleep(4000);
             application.Close();
