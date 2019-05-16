@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,7 +44,7 @@ namespace SikuliTest
 
             */
             var file = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\file.png");
-            var max = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\maximize.png");
+            var max = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\maximize.png", 0.8f);
             var aggiungi = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\aggiungi.png");
             var testoAggiungi = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\testoAggiungi.png");
             var continua = Patterns.FromFile(@"C:\Users\Fabio\Desktop\jdownloaderImages\continua.png");
@@ -55,9 +56,12 @@ namespace SikuliTest
 
             using (var session = Sikuli.CreateSession())
             {
-                
 
-                session.Click(max);
+                try
+                {
+                    session.Click(max);
+                }
+                catch (SikuliFindFailedException e) { }
                 session.Click(file);
                 session.Click(aggiungi);
 
